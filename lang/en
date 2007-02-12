@@ -1,0 +1,59 @@
+index_title=Ruby Gems
+index_epear=An error was detected on your system : $1. Maybe Ruby or Gems are not installed, or the <a href='$2'>module configuration</a> is incorrect.
+index_mods=Currently Installed Gems
+index_none=No Ruby Gems have been installed yet.
+index_name=Module name
+index_version=Version
+index_versions=Versions
+index_desc=Description
+index_delete=Un-Install Selected Gems
+index_return=Gems list
+index_header=Install New Gem
+index_mod=Gem to install
+index_ok=Install Now
+index_search=Find available Gems matching:
+index_sok=Search
+index_results=Gems matching your search for $1 ..
+
+install_title=Install Gem
+install_doing=Installing the Ruby Gem $1 ..
+install_doing2=Installing version $2 of the Ruby Gem $1 ..
+install_failed=.. failed! See the error message above for the reason why.
+install_done=.. install complete.
+
+check_ecmd=The Gems command $1 was not found
+check_ecmd2=The Ruby command $1 was not found
+
+view_title=Ruby Gem Details
+view_header=Details of installed Gem
+view_header2=Details of available Gem
+view_name=Gem name
+view_version=Installed version
+view_versions=Available versions
+view_desc=Full description
+view_delete=Uninstall Gem
+view_avail=Available versions
+view_install=Install Gem
+view_upgrade=Upgrade
+
+deletes_title=Un-Install Gems
+deletes_err=Failed to un-install Gems
+deletes_enone=None selected
+deletes_rusure=Are you sure you want to un-install all versions of the $1 selected Ruby Gems?
+deletes_ok=Un-Install Now
+deletes_mods=Selected Gems : $1
+deletes_doing=Un-installing the selected Ruby Gems ..
+deletes_failed=.. failed! See the error message above for the reason why.
+deletes_done=.. un-install complete.
+
+delete_title=Un-Install Gem
+delete_err=Failed to un-install Gem
+delete_rusure=Are you sure you want to un-install Gem $1 version $2 ?
+delete_ok=Un-Install Now
+delete_doing=Un-installing Gem $1 version $2 ..
+delete_failed=.. failed! See the error message above for the reason why.
+delete_done=.. un-install complete.
+
+log_install=Installed Gem $1
+log_delete=Un-installed Gems $1
+log_deletes=Un-installed $1 Gem1
