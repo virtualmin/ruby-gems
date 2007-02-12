@@ -1,5 +1,5 @@
 index_title=Ruby Gems
-index_epear=An error was detected on your system : $1. Maybe Ruby or Gems are not installed, or the <a href='$2'>module configuration</a> is incorrect.
+index_egems=An error was detected on your system : $1. Maybe Ruby or Gems are not installed, or the <a href='$2'>module configuration</a> is incorrect.
 index_mods=Currently Installed Gems
 index_none=No Ruby Gems have been installed yet.
 index_name=Module name
