@@ -95,9 +95,10 @@ return @rv;
 sub install_gems_module
 {
 local ($name, $version) = @_;
-local $out = &backquote_logged("$config{'gem'} install ".quotemeta($name).
-			       " --include-dependencies".
-			       ($version ? " --version $version" : "")." 2>&1");
+local $cmd = "$config{'gem'} install ".quotemeta($name).
+	     " --include-dependencies".
+	     ($version ? " --version $version" : "");
+local $out = &backquote_logged("yes ruby | ".$cmd." 2>&1");
 return $? ? "<pre>$out</pre>" : undef;
 }
 

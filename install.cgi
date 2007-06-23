@@ -5,6 +5,12 @@ require './ruby-gems-lib.pl';
 &ReadParse();
 &ui_print_header(undef, $text{'install_title'}, "");
 
+if ($in{'mod'} =~ /^(\S+)\/(\S+)$/) {
+	# Called from index with name and version in one parameter
+	$in{'mod'} = $1;
+	$in{'version'} = $2;
+	}
+
 if ($in{'version'}) {
 	print &text('install_doing2', "<tt>$in{'mod'}</tt>",
 				      $in{'version'}),"<br>\n";

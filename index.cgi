@@ -71,7 +71,7 @@ if (defined($in{'search'})) {
 			"$m->{'name'}</a>",
 			$m->{'versions'}->[0],
 			$dl[0] || "<br>" ], \@tds,
-			"mod", $m->{'name'});
+			"mod", $m->{'name'}."/".$m->{'versions'}->[0]);
 		}
 	print &ui_columns_end();
 	print &ui_form_end([ [ "install", $text{'index_ok'} ] ]);
