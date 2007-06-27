@@ -103,8 +103,38 @@ local ($name, $version) = @_;
 local $cmd = "$config{'gem'} install ".quotemeta($name).
 	     " --include-dependencies".
 	     ($version ? " --version $version" : "");
-local $out = &backquote_logged("yes ruby | ".$cmd." 2>&1");
-return $? ? "<pre>$out</pre>" : undef;
+&foreign_require("proc", "proc-lib.pl");
+local ($fh, $fpid) = &proc::pty_process_exec($cmd);
+local $out;
+while(1) {
+	local $rv = &wait_for($fh, "Select which gem");
+	$out .= $wait_for_input;
+	if ($rv < 0) {
+		# All done
+		last;
+		}
+	else {
+		# Start of a block asking for a version
+		$rv = &wait_for($fh, ">");
+		$out .= $wait_for_input;
+		local @lines = split(/\r?\n/, $wait_for_input);
+		local $vernum;
+		foreach my $l (@lines) {
+			if ($l =~ /^\s*(\d+)\.\s*(\S+)\s+([0-9\.]+)\s+\(ruby\)/) {
+				$vernum = $1;
+				last;
+				}
+			}
+		if ($vernum) {
+			&sysprint($fh, "$vernum\n");
+			}
+		else {
+			return "Failed to parse version numbers : $wait_for_input";
+			}
+		}
+	}
+close($fh);
+return $out =~ /error/i ? "<pre>$out</pre>" : undef;
 }
 
 # uninstall_gems_module(name, version)

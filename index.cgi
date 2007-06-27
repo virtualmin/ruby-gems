@@ -30,7 +30,7 @@ if (@mods) {
 			      "&version=$_'>$_</a>" }
 			    @{$m->{'versions'}};
 		print &ui_checked_columns_row([
-		  &urlize($m->{'name'}),
+		  &html_escape($m->{'name'}),
 		  join("&nbsp;|&nbsp;", @vers),
 		  $dl[0] ], \@tds,
 		  "d", $m->{'name'});
