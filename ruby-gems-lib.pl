@@ -60,27 +60,32 @@ if (@st && $st[9] > time()-60*60) {
 	return @$rv;
 	}
 
-# Really download list
+# Really download list. Try this a couple of times, as the first time
+# gem list is run it just outputs a message ..
+local $tries = 0;
 local @rv;
-&open_execute_command(GEMS, "$config{'gem'} list --remote", 1);
-while(<GEMS>) {
-	s/\r|\n//g;
-	if (/^(\S+)\s+\((.*)\)/) {
-		# Start of a new gem
-		local $gem = { 'name' => $1,
-			       'versions' => [ split(/\s*,\s*/, $2) ] };
-		push(@rv, $gem);
+while($tries++ < 2) {
+	&open_execute_command(GEMS, "$config{'gem'} list --remote", 1);
+	while(<GEMS>) {
+		s/\r|\n//g;
+		if (/^(\S+)\s+\((.*)\)/) {
+			# Start of a new gem
+			local $gem = { 'name' => $1,
+				       'versions' => [ split(/\s*,\s*/, $2) ] };
+			push(@rv, $gem);
+			}
+		elsif (/^\*/) {
+			# Skip header line
+			}
+		elsif (/^\s+(.*)/) {
+			# Description
+			$rv[$#rv]->{'desc'} .= "\n" if ($rv[$#rv]->{'desc'});
+			$rv[$#rv]->{'desc'} .= $_;
+			}
 		}
-	elsif (/^\*/) {
-		# Skip header line
-		}
-	elsif (/^\s+(.*)/) {
-		# Description
-		$rv[$#rv]->{'desc'} .= "\n" if ($rv[$#rv]->{'desc'});
-		$rv[$#rv]->{'desc'} .= $_;
-		}
+	close(GEMS);
+	last if (@rv > 1);
 	}
-close(GEMS);
 
 # Write to cache and return
 &open_tempfile(CACHE, ">$available_gems_cache");
