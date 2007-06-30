@@ -14,6 +14,7 @@ index_ok=Install Now
 index_search=Find available Gems matching:
 index_sok=Search
 index_results=Gems matching your search for $1 ..
+index_noresults=No Gems matching your search for $1 were found.
 
 install_title=Install Gem
 install_doing=Installing the Ruby Gem $1 ..

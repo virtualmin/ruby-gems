@@ -57,24 +57,33 @@ if (defined($in{'search'})) {
 	@avail = &list_available_gems_modules();
 	@avail = grep { $_->{'name'} =~ /\Q$in{'search'}\E/i ||
 			$_->{'desc'} =~ /\Q$in{'search'}\E/i } @avail;
-	if ($in{'search'}) {
-		print &text('index_results', "<tt>$in{'search'}</tt>"),"<br>\n";
+	if (@avail) {
+		if ($in{'search'}) {
+			print &text('index_results',
+				    "<tt>$in{'search'}</tt>"),"<br>\n";
+			}
+		print &ui_form_start("install.cgi", "post");
+		print &ui_columns_start([ "", $text{'index_name'},
+					  $text{'index_version'},
+					  $text{'index_desc'} ]);
+		foreach $m (sort { lc($a->{'name'}) cmp lc($b->{'name'}) }
+				 @avail) {
+			@dl = split(/\n/, $m->{'desc'});
+			print &ui_radio_columns_row([
+				"<a href='iview.cgi?name=".
+				  &urlize($m->{'name'})."'>".
+				"$m->{'name'}</a>",
+				$m->{'versions'}->[0],
+				$dl[0] || "<br>" ], \@tds,
+				"mod", $m->{'name'}."/".$m->{'versions'}->[0]);
+			}
+		print &ui_columns_end();
+		print &ui_form_end([ [ "install", $text{'index_ok'} ] ]);
 		}
-	print &ui_form_start("install.cgi", "post");
-	print &ui_columns_start([ "", $text{'index_name'},
-				  $text{'index_version'},
-				  $text{'index_desc'} ]);
-	foreach $m (sort { lc($a->{'name'}) cmp lc($b->{'name'}) } @avail) {
-		@dl = split(/\n/, $m->{'desc'});
-		print &ui_radio_columns_row([
-			"<a href='iview.cgi?name=".&urlize($m->{'name'})."'>".
-			"$m->{'name'}</a>",
-			$m->{'versions'}->[0],
-			$dl[0] || "<br>" ], \@tds,
-			"mod", $m->{'name'}."/".$m->{'versions'}->[0]);
+	else {
+		print &text('index_noresults',
+			    "<tt>$in{'search'}</tt>"),"<p>\n";
 		}
-	print &ui_columns_end();
-	print &ui_form_end([ [ "install", $text{'index_ok'} ] ]);
 	}
 
 &ui_print_footer("/", $text{'index'});
