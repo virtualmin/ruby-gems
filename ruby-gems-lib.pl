@@ -57,7 +57,9 @@ if (@st && $st[9] > time()-60*60) {
 	# Can use cache
 	local $ser = &read_file_contents($available_gems_cache);
 	local $rv = &unserialise_variable($ser);
-	return @$rv;
+	if (@$rv > 5) {
+		return @$rv;
+		}
 	}
 
 # Really download list. Try this a couple of times, as the first time
