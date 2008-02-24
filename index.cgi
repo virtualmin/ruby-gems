@@ -60,7 +60,7 @@ if (defined($in{'search'})) {
 	if (@avail) {
 		if ($in{'search'}) {
 			print &text('index_results',
-				    "<tt>$in{'search'}</tt>"),"<br>\n";
+			   "<tt>".&html_escape($in{'search'})."</tt>"),"<br>\n";
 			}
 		print &ui_form_start("install.cgi", "post");
 		print &ui_columns_start([ "", $text{'index_name'},
@@ -82,7 +82,7 @@ if (defined($in{'search'})) {
 		}
 	else {
 		print &text('index_noresults',
-			    "<tt>$in{'search'}</tt>"),"<p>\n";
+			    "<tt>".&html_escape($in{'search'})."</tt>"),"<p>\n";
 		}
 	}
 
