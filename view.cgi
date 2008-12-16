@@ -19,6 +19,16 @@ print &ui_table_row($text{'view_version'}, $in{'version'}, 1, \@tds);
 print &ui_table_row($text{'view_desc'},
 		    &html_escape($mod->{'desc'}), 1, \@tds);
 
+if ($mod->{'author'}) {
+	print &ui_table_row($text{'view_author'},
+		&html_escape($mod->{'author'}), 1, \@tds);
+	}
+
+if ($mod->{'homepage'}) {
+	print &ui_table_row($text{'view_homepage'},
+		"<a href='$mod->{'homepage'}'>$mod->{'homepage'}</a>", 1,\@tds);
+	}
+
 ($avail) = grep { $_->{'name'} eq $in{'name'} } &list_available_gems_modules();
 if ($avail) {
 	print &ui_table_row($text{'view_avail'},

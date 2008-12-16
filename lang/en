@@ -36,6 +36,8 @@ view_delete=Uninstall Gem
 view_avail=Available versions
 view_install=Install Gem
 view_upgrade=Upgrade
+view_author=Module author
+view_homepage=Home page
 
 deletes_title=Un-Install Gems
 deletes_err=Failed to un-install Gems

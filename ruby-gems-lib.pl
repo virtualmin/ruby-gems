@@ -24,7 +24,7 @@ return undef;
 sub list_installed_gems_modules
 {
 local @rv;
-&open_execute_command(GEMS, "$config{'gem'} list --local", 1);
+&open_execute_command(GEMS, "$config{'gem'} list --local -d", 1);
 while(<GEMS>) {
 	s/\r|\n//g;
 	if (/^(\S+)\s+\((.*)\)/) {
@@ -36,7 +36,15 @@ while(<GEMS>) {
 	elsif (/^\*/) {
 		# Skip header line
 		}
-	elsif (/^\s+(.*)/ && @rv) {
+	elsif (/^\s+(\S.*\S):\s+(.*)$/ && @rv) {
+		# Tag line
+		local ($tag, $val) = (lc($1), $2);
+		$tag =~ s/\s*\(([0-9\.]+)\)$//;
+		if ($tag) {
+			$rv[$#rv]->{$tag} ||= $val;
+			}
+		}
+	elsif (/^\s+(\S.*)/ && @rv) {
 		# Description
 		$rv[$#rv]->{'desc'} .= "\n" if ($rv[$#rv]->{'desc'});
 		$rv[$#rv]->{'desc'} .= $_;
