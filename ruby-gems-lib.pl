@@ -1,8 +1,12 @@
 # Functions for finding and installing Ruby gems packages
 
-do '../web-lib.pl';
+BEGIN { push(@INC, ".."); };
+eval "use WebminCore;";
+if ($@) {
+	do '../web-lib.pl';
+	do '../ui-lib.pl';
+	}
 &init_config();
-do '../ui-lib.pl';
 
 $available_gems_cache = "$module_config_directory/available";
 

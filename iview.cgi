@@ -18,8 +18,10 @@ print &ui_table_row($text{'view_versions'},
 			       [ map { [ $_ ] } @{$mod->{'versions'}} ]),
 		    1, \@tds);
 
-print &ui_table_row($text{'view_desc'},
-		    &html_escape($mod->{'desc'}), 1, \@tds);
+if ($mod->{'desc'}) {
+	print &ui_table_row($text{'view_desc'},
+			    &html_escape($mod->{'desc'}), 1, \@tds);
+	}
 
 print &ui_table_end();
 print &ui_form_end([ [ "install", $text{'view_install'} ] ]);

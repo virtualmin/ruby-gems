@@ -47,11 +47,12 @@ else {
 print &ui_subheading($text{'index_header'});
 
 # Since there are so many, show a search form
-print &ui_form_start("index.cgi");
+print "<a name=search>\n";
+print &ui_form_start("index.cgi#search", "post");
 print "<b>$text{'index_search'}</b>\n";
 print &ui_textbox("search", $in{'search'}, 30),"\n";
 print &ui_submit($text{'index_sok'});
-print &ui_form_end();
+print &ui_form_end(),"<br>\n";
 
 if (defined($in{'search'})) {
 	@avail = &list_available_gems_modules();

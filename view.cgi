@@ -16,8 +16,10 @@ print &ui_table_row($text{'view_name'}, "<tt>$mod->{'name'}</tt>", 1, \@tds);
 
 print &ui_table_row($text{'view_version'}, $in{'version'}, 1, \@tds);
 
-print &ui_table_row($text{'view_desc'},
-		    &html_escape($mod->{'desc'}), 1, \@tds);
+if ($mod->{'desc'}) {
+	print &ui_table_row($text{'view_desc'},
+			    &html_escape($mod->{'desc'}), 1, \@tds);
+	}
 
 if ($mod->{'author'}) {
 	print &ui_table_row($text{'view_author'},
