@@ -60,3 +60,4 @@ delete_done=.. un-install complete.
 log_install=Installed Gem $1
 log_delete=Un-installed Gems $1
 log_deletes=Un-installed $1 Gem1
+__norefs=1
