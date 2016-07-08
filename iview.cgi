@@ -1,12 +1,15 @@
 #!/usr/local/bin/perl
 # Show full details of an available Gems module
+use strict;
+use warnings;
+our (%text, %in);
 
 require './ruby-gems-lib.pl';
 &ReadParse();
 &ui_print_header(undef, $text{'view_title'}, "");
 
-($mod) = grep { $_->{'name'} eq $in{'name'} } &list_available_gems_modules();
-@tds = ( "nowrap" );
+my ($mod) = grep { $_->{'name'} eq $in{'name'} } &list_available_gems_modules();
+my @tds = ( "nowrap" );
 print &ui_form_start("install.cgi");
 print &ui_hidden("mod", $mod->{'name'}),"\n";
 print &ui_table_start($text{'view_header'}, "width=50%", 2);

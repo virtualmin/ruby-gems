@@ -1,5 +1,7 @@
 # log_parser.pl
 # Functions for parsing this module's logs
+use strict;
+use warnings;
 
 do 'ruby-gems-lib.pl';
 
@@ -7,7 +9,7 @@ do 'ruby-gems-lib.pl';
 # Converts logged information from this module into human-readable form
 sub parse_webmin_log
 {
-local ($user, $script, $action, $type, $object, $p) = @_;
+my ($user, $script, $action, $type, $object, $p) = @_;
 if ($action eq "install") {
 	return &text('log_install', "<tt>$object</tt>");
 	}

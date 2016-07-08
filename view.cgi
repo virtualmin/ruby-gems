@@ -1,12 +1,15 @@
 #!/usr/local/bin/perl
 # Show full details of an installed Gems module
+use strict;
+use warnings;
+our (%text, %in);
 
 require './ruby-gems-lib.pl';
 &ReadParse();
 &ui_print_header(undef, $text{'view_title'}, "");
 
-($mod) = grep { $_->{'name'} eq $in{'name'} } &list_installed_gems_modules();
-@tds = ( "nowrap" );
+my ($mod) = grep { $_->{'name'} eq $in{'name'} } &list_installed_gems_modules();
+my @tds = ( "nowrap" );
 print &ui_form_start("delete.cgi");
 print &ui_hidden("name", $in{'name'}),"\n";
 print &ui_hidden("dversion", $in{'version'}),"\n";
@@ -31,7 +34,7 @@ if ($mod->{'homepage'}) {
 		"<a href='$mod->{'homepage'}'>$mod->{'homepage'}</a>", 1,\@tds);
 	}
 
-($avail) = grep { $_->{'name'} eq $in{'name'} } &list_available_gems_modules();
+my ($avail) = grep { $_->{'name'} eq $in{'name'} } &list_available_gems_modules();
 if ($avail) {
 	print &ui_table_row($text{'view_avail'},
 			    &ui_select("version", $mod->{'version'},

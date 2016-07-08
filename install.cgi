@@ -1,5 +1,8 @@
 #!/usr/local/bin/perl
 # Install one gems module
+use strict;
+use warnings;
+our (%text, %in);
 
 require './ruby-gems-lib.pl';
 &ReadParse();
@@ -18,7 +21,7 @@ if ($in{'version'}) {
 else {
 	print &text('install_doing', "<tt>$in{'mod'}</tt>"),"<br>\n";
 	}
-$err = &install_gems_module($in{'mod'}, $in{'version'});
+my $err = &install_gems_module($in{'mod'}, $in{'version'});
 if ($err) {
 	print $err,"\n";
 	print $text{'install_failed'},"<br>\n";

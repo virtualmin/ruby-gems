@@ -1,3 +1,5 @@
+use warnings;
+use strict;
 
 do 'ruby-gems-lib.pl';
 

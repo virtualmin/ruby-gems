@@ -1,5 +1,8 @@
 #!/usr/local/bin/perl
 # Delete one gem
+use strict;
+use warnings;
+our (%text, %in); 
 
 require './ruby-gems-lib.pl';
 &ReadParse();
@@ -18,7 +21,7 @@ if ($in{'confirm'}) {
 	# Do the delete
 	print &text('delete_doing', "<tt>$in{'name'}</tt>",
                                      $in{'dversion'}),"<p>\n";
-	$err = &uninstall_gems_module($in{'name'}, $in{'dversion'});
+	my $err = &uninstall_gems_module($in{'name'}, $in{'dversion'});
 	if ($err) {
 		print $err,"\n";
 		print $text{'delete_failed'},"<br>\n";
